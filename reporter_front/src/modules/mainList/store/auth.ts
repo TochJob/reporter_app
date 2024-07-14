@@ -9,7 +9,7 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     async loginAccount(data: loginData) {
       try {
-        localStorage.setItem('token', 'true')
+        localStorage.setItem("token", "true");
         // const {data} = await axios(data);
         // return data;
       } catch (error) {

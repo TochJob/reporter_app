@@ -1,16 +1,12 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div
-    class="flipper"
-  >
+  <div class="flipper">
     <div class="front-card card">
-        <slot name="front"></slot>
+      <slot name="front"></slot>
     </div>
     <div class="back-card card">
-        <slot name="back"></slot>
+      <slot name="back"></slot>
     </div>
   </div>
 </template>
@@ -90,7 +86,8 @@
   box-sizing: border-box;
   border-radius: 15px;
   background-clip: padding-box;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 2px 5px 0 rgba(0, 0, 0, 0.16),
+    0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
-
 </style>

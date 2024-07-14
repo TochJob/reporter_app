@@ -1,29 +1,34 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from 'vue';
+
 interface Props {
-  placeholder: string;
+  placeholder?: string;
   modelValue: string | undefined;
 }
 
-const { placeholder, modelValue } = defineProps<Props>();
-const emit = defineEmits();
-const inputValue = ref(modelValue);
-const updateValue = (event: Event) => {
-  inputValue.value = (event.target as HTMLInputElement).value;
-  emit("update:modelValue", inputValue);
-};
-</script>
+const {modelValue} = defineProps<Props>();
+const emit = defineEmits(['update:modelValue']);
 
+const inputValue = ref(modelValue);
+
+watch(() => modelValue, (newValue) => {
+  inputValue.value = newValue;
+});
+
+// Эмитируем изменение локального значения
+watch(inputValue, (newValue) => {
+  emit('update:modelValue', newValue);
+
+});
+</script>
 <template>
   <input
     :placeholder="placeholder"
-    :value="modelValue"
-    @input="updateValue"
+    v-model="inputValue"
     class="input"
     type="text"
   />
 </template>
-
 <style lang="scss" scoped>
 .input {
   width: 100%;

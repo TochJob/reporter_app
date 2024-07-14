@@ -1,6 +1,6 @@
-interface InputItem {
-    id:number,
-    value: string | number | null
+interface loginData {
+  login: string;
+  password: string;
 }
-type InputList = InputItem[]
-export type {InputList}
+
+export type { loginData };

@@ -2,17 +2,15 @@
 import { onBeforeMount } from "vue";
 import { RouterView, useRouter } from "vue-router";
 
-const router = useRouter()
+const router = useRouter();
 
-
-onBeforeMount(()=>{
-  const authToken = localStorage.getItem('token')
-  authToken ?  router.push('/') : router.push('/auth')
-  
-})
+onBeforeMount(() => {
+  const authToken = localStorage.getItem("token");
+  authToken ? router.push("/") : router.push("/auth");
+});
 </script>
 <template>
-    <h1 class="title">Reporter App</h1>
+  <h1 class="title">Reporter App</h1>
   <RouterView />
 </template>
 

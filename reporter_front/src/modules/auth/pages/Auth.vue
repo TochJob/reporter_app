@@ -6,7 +6,7 @@ import { useRouter } from "vue-router";
 import { useAuthStore } from "../store/auth";
 import type { loginData } from "../typos/types";
 
-const router = useRouter()
+const router = useRouter();
 
 const authStore = useAuthStore();
 const isLogin = ref(true);
@@ -45,16 +45,14 @@ function flipCard() {
 }
 const submitForm = async () => {
   if (isLogin.value) {
-    const data:loginData = {
+    const data: loginData = {
       login: inputSignIn.value[0].modelValue,
       password: inputSignIn.value[1].modelValue,
     };
     try {
       await authStore.loginAccount(data);
-      router.push('/')
-    } catch (error) {
-      
-    }
+      router.push("/");
+    } catch (error) {}
     console.log(1);
   } else {
     console.log(2);
@@ -90,6 +88,5 @@ const submitForm = async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 </style>

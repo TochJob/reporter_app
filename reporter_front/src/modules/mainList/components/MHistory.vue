@@ -1,6 +1,4 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="history">
@@ -8,6 +6,4 @@
   </div>
 </template>
 
-<style style="scss" scoped>
-
-</style>
+<style style="scss" scoped></style>

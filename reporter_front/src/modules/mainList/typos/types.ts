@@ -1,6 +1,6 @@
-interface loginData {
-    login: string, 
-    password: string
+interface InputItem {
+  id: number;
+  value: string | number | null;
 }
-
-export type {loginData}
+type InputList = InputItem[];
+export type { InputList, InputItem };
