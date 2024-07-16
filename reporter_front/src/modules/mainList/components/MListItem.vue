@@ -3,33 +3,46 @@ import IPlus from '@/components/SVG/IPlus.vue'
 import ITrash from '@/components/SVG/ITrash.vue'
 import CInput from '@/components/UI/CInput.vue'
 import CButton from '@/components/UI/CButton.vue'
-import { ref, watch } from 'vue'
+
+import type { InputButton } from '../typos/types'
+
+import { ref, watch, shallowRef, computed } from 'vue'
 
 interface Props {
   modelValue: string | number | null
   isLastElement: boolean
+  isDisabled: boolean
 }
 
-const { isLastElement, modelValue } = defineProps<Props>()
+const props = defineProps<Props>()
 const emit = defineEmits(['update:modelValue', 'deleteItem', 'createItem'])
 
-const localValue = ref(modelValue)
-const inputsButtons = [
-  {
-    icon: ITrash,
-    action: () => emit('deleteItem'),
-    isButtonVisible: true,
-  },
-  {
-    icon: IPlus,
-    action: () => emit('createItem'),
-    extraClass: 'add',
-    isButtonVisible: isLastElement,
-  },
-]
+const localValue = ref(props.modelValue)
+
+const inputsButtons = computed(() => {
+  const buttons: InputButton[] = [
+    {
+      icon: ITrash,
+      action: () => emit('deleteItem'),
+      id: 0,
+      isButtonVisible: true,
+      disabled: props.isDisabled,
+    },
+    {
+      icon: IPlus,
+      action: () => emit('createItem'),
+      isButtonVisible: props.isLastElement,
+      id: 1,
+      extraClass: 'add',
+      disabled: false,
+    },
+  ]
+
+  return buttons
+})
 
 watch(
-  () => modelValue,
+  () => props.modelValue,
   (newVal) => {
     localValue.value = newVal
   },
@@ -42,8 +55,14 @@ watch(localValue, (newVal) => {
 <template>
   <div class="item">
     <CInput v-model="localValue" type="text" />
-    <template v-for="(item, index) of inputsButtons" :key="index">
-      <CButton class="item-button" :class="item.extraClass" @click="item.action"
+
+    <template v-for="item of inputsButtons" :key="item.id">
+      <CButton
+        v-if="item.isButtonVisible"
+        class="item-button"
+        :class="item.extraClass"
+        :disabled="item.disabled"
+        @click="item.action"
         ><component :is="item.icon"
       /></CButton>
     </template>

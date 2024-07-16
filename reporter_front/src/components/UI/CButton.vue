@@ -1,7 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface Props {
+  disabled?: boolean
+}
+
+const { disabled } = defineProps<Props>()
+</script>
 
 <template>
-  <button class="button">
+  <button class="button" :disabled="disabled">
     <slot></slot>
   </button>
 </template>
@@ -19,6 +25,13 @@
   border: none;
   &:hover {
     background: #b9b9b9;
+  }
+  &:disabled {
+    opacity: 0.7;
+    &:hover {
+      background: #d9d9d9;
+      cursor: not-allowed;
+    }
   }
 }
 </style>

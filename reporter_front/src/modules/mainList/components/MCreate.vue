@@ -18,8 +18,6 @@ const deleteItem = (id: number): void => {
   )
 }
 const createItem = (): void => {
-  console.log(createItem)
-
   const lastId =
     rowElements.value.length > 0
       ? rowElements.value[rowElements.value.length - 1].id
@@ -48,6 +46,7 @@ const createItem = (): void => {
           @createItem="createItem"
           @deleteItem="deleteItem(item.id)"
           :isLastElement="index === rowElements.length - 1"
+          :isDisabled="rowElements.length === 1"
         />
       </div>
     </div>
