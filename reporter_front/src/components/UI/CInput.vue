@@ -1,25 +1,26 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch } from 'vue'
 
 interface Props {
-  placeholder?: string;
-  modelValue: string | undefined;
+  placeholder?: string
+  modelValue: string | undefined
 }
 
-const {modelValue} = defineProps<Props>();
-const emit = defineEmits(['update:modelValue']);
+const { modelValue, placeholder } = defineProps<Props>()
+const emit = defineEmits(['update:modelValue'])
 
-const inputValue = ref(modelValue);
+const inputValue = ref(modelValue)
 
-watch(() => modelValue, (newValue) => {
-  inputValue.value = newValue;
-});
+watch(
+  () => modelValue,
+  (newValue) => {
+    inputValue.value = newValue
+  },
+)
 
-// Эмитируем изменение локального значения
 watch(inputValue, (newValue) => {
-  emit('update:modelValue', newValue);
-
-});
+  emit('update:modelValue', newValue)
+})
 </script>
 <template>
   <input

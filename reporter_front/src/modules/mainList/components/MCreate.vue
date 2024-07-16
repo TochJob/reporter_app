@@ -1,34 +1,37 @@
 <script setup lang="ts">
-import type { InputList, InputItem } from "../typos/types";
+import type { InputList, InputItem } from '../typos/types'
 
-import MListItem from "../components/MListItem.vue";
+import MListItem from '../components/MListItem.vue'
 
-import { ref } from "vue";
-import type { Ref } from "vue";
+import { ref } from 'vue'
+import type { Ref } from 'vue'
 const rowElements: Ref<InputList> = ref([
   {
     id: 0,
-    value: 123,
+    value: null,
   },
-]);
+])
 
 const deleteItem = (id: number): void => {
   rowElements.value = rowElements.value.filter(
     (item: InputItem) => item.id !== id,
-  );
-};
+  )
+}
 const createItem = (): void => {
-  const lastId = rowElements.value.length > 0 
-    ? rowElements.value[rowElements.value.length - 1].id 
-    : 0;
+  console.log(createItem)
 
-  const newId = lastId + 1;
+  const lastId =
+    rowElements.value.length > 0
+      ? rowElements.value[rowElements.value.length - 1].id
+      : 0
+
+  const newId = lastId + 1
 
   rowElements.value.push({
-    id:newId,
+    id: newId,
     value: null,
-  });
-};
+  })
+}
 </script>
 
 <template>
@@ -44,7 +47,7 @@ const createItem = (): void => {
           v-model="item.value"
           @createItem="createItem"
           @deleteItem="deleteItem(item.id)"
-          :lastElement="index === rowElements.length - 1"
+          :isLastElement="index === rowElements.length - 1"
         />
       </div>
     </div>

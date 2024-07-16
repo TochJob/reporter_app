@@ -1,43 +1,52 @@
 <script setup lang="ts">
-import IPlus from "@/components/SVG/IPlus.vue";
-import ITrash from "@/components/SVG/ITrash.vue";
-import CInput from "@/components/UI/CInput.vue";
-import CButton from "@/components/UI/CButton.vue";
-import { ref, watch } from "vue";
+import IPlus from '@/components/SVG/IPlus.vue'
+import ITrash from '@/components/SVG/ITrash.vue'
+import CInput from '@/components/UI/CInput.vue'
+import CButton from '@/components/UI/CButton.vue'
+import { ref, watch } from 'vue'
 
 interface Props {
-  modelValue: any;
-  lastElement: Boolean;
+  modelValue: string | number | null
+  isLastElement: boolean
 }
 
-const { lastElement, modelValue } = defineProps<Props>();
-const emit = defineEmits(["update:modelValue", "deleteItem", "createItem"]);
+const { isLastElement, modelValue } = defineProps<Props>()
+const emit = defineEmits(['update:modelValue', 'deleteItem', 'createItem'])
 
-const localValue = ref(modelValue);
+const localValue = ref(modelValue)
+const inputsButtons = [
+  {
+    icon: ITrash,
+    action: () => emit('deleteItem'),
+    isButtonVisible: true,
+  },
+  {
+    icon: IPlus,
+    action: () => emit('createItem'),
+    extraClass: 'add',
+    isButtonVisible: isLastElement,
+  },
+]
 
 watch(
   () => modelValue,
   (newVal) => {
-    localValue.value = newVal;
+    localValue.value = newVal
   },
-);
+)
 watch(localValue, (newVal) => {
-  emit("update:modelValue", newVal);
-});
+  emit('update:modelValue', newVal)
+})
 </script>
 
 <template>
   <div class="item">
     <CInput v-model="localValue" type="text" />
-    <CButton class="item-button" @click="emit('deleteItem')"
-      ><ITrash
-    /></CButton>
-    <CButton
-      v-if="lastElement"
-      @click="emit('createItem')"
-      class="item-button add"
-      ><IPlus
-    /></CButton>
+    <template v-for="(item, index) of inputsButtons" :key="index">
+      <CButton class="item-button" :class="item.extraClass" @click="item.action"
+        ><component :is="item.icon"
+      /></CButton>
+    </template>
   </div>
 </template>
 
