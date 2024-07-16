@@ -18,10 +18,14 @@ const deleteItem = (id: number): void => {
   );
 };
 const createItem = (): void => {
-  const id = rowElements.value[rowElements.value.length - 1].id++;
+  const lastId = rowElements.value.length > 0 
+    ? rowElements.value[rowElements.value.length - 1].id 
+    : 0;
+
+  const newId = lastId + 1;
 
   rowElements.value.push({
-    id,
+    id:newId,
     value: null,
   });
 };

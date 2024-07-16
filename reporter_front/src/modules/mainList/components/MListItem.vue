@@ -18,7 +18,6 @@ const localValue = ref(modelValue);
 watch(
   () => modelValue,
   (newVal) => {
-    console.log("modelValue");
     localValue.value = newVal;
   },
 );
